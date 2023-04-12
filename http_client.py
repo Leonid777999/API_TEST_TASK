@@ -41,29 +41,3 @@ class HttpClient:
 
 
 
-a = HttpClient()
-response_body = a.request(HttpMethods.GET, "https://restful-booker.herokuapp.com/booking")
-bookingid = response_body[1]["bookingid"]
-print(bookingid)
-
-headers = {
-     'Content-Type': 'application/json',
-     'Accept': 'application/json'
-    }
-payload = {
-  'firstname':'First Name',
-  'lastname':'Last Name',
-  'totalprice':'100.00',
-  'depositpaid':'50.00',
-  'bookingdates':
-    {
-      'checkin': '2023-05-19',
-      'checkout': '2023-05-21'
-     },
-  'additionalneeds':
-    (
-      'fruit garden', '20 years old whiskey'
-    )
-}
-response_body = a.request(HttpMethods.POST, "https://restful-booker.herokuapp.com/booking", payload, headers)
-print(response_body)
