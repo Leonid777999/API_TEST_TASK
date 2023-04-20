@@ -10,8 +10,12 @@ class Headers:
      'Accept': 'application/json'
     }
 
-    UPDATE_DELETE_BOOKING_HEADER = {
+    UPDATE_BOOKING_HEADER = {
      'Accept': 'application/json',
      'Content-Type': 'application/json',
      'Authorization': 'Basic YWRtaW46cGFzc3dvcmQxMjM='
+    }
+
+    DELETE_BOOKING_HEADER = {
+      'Authorization': 'Basic YWRtaW46cGFzc3dvcmQxMjM='
     }

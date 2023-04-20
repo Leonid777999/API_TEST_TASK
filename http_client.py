@@ -19,25 +19,31 @@ class HttpClient:
     }
 
     def __init__(self):
+        # self.__session.headers = {
+        #  'Accept': 'application/json',
+        #  'Content-Type': 'application/json',
+        #  'Authorization': 'Basic YWRtaW46cGFzc3dvcmQxMjM='
+        #}
         pass
-
-    def request(self, req_type: HttpMethods, url: str, payload=None, headers=None):
+    def request(self, req_type: HttpMethods, url: str, payload=None, headers=None, check_status_code=None):
         # parse payload
         payload = json.dumps(payload)
-
+        # update headers
+        #if headers is not None:
+        #    headers = self.__session.headers.copy().update(headers)
 
         print(f'HTTP REQUEST:\n'
               + f'Type: {req_type}\n'
               + f'URL: {url}\n'
+              + f'Header:{headers}\n'
               + f'Payload: {repr(payload)}')
 
         response = self.__REQ_TYPES[req_type](url=url, data=payload, headers=headers)
         status_code = f'{response.status_code} {response.reason}'
-        if response.status_code == 200:
-            print(f'HTTP RESPONSE: {status_code}')
-        else:
-            raise Exception(f'HTTP RESPONSE: {status_code}')
+
+        print(f'HTTP RESPONSE: {status_code}')
+
+        if check_status_code is not None:
+            assert check_status_code == response.status_code
+
         return response.json()
-
-
-

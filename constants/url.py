@@ -1,7 +1,8 @@
 class Url:
 
-    GET_LIST = "https://restful-booker.herokuapp.com/booking"
-    GET_BOOKING = "https://restful-booker.herokuapp.com/booking/{id}"
-    CREATE = "https://restful-booker.herokuapp.com/booking"
-    UPDATE = "https://restful-booker.herokuapp.com/booking/{id}"
-    DELETE = "https://restful-booker.herokuapp.com/booking/{id}"
+    PREFIX = "https://restful-booker.herokuapp.com"
+    GET_LIST = f"{PREFIX}/booking"
+    GET_BOOKING = f"{PREFIX}/booking/{{id}}"
+    CREATE = f"{PREFIX}/booking"
+    UPDATE = f"{PREFIX}/booking/{{id}}"
+    DELETE = f"{PREFIX}/booking/{{id}}"
