@@ -18,14 +18,11 @@ class HttpClient:
         HttpMethods.DELETE: __session.delete
     }
 
-    def __init__(self):
-        # self.__session.headers = {
-        #  'Accept': 'application/json',
-        #  'Content-Type': 'application/json',
-        #  'Authorization': 'Basic YWRtaW46cGFzc3dvcmQxMjM='
-        #}
-        pass
-    def request(self, req_type: HttpMethods, url: str, payload=None, headers=None, check_status_code=None):
+    def __init__(self, headers: dict = None):
+        self.headers = headers
+
+
+    def request(self, req_type: HttpMethods, url: str, payload=None, check_status_code=None):
         # parse payload
         payload = json.dumps(payload)
         # update headers
@@ -35,10 +32,10 @@ class HttpClient:
         print(f'HTTP REQUEST:\n'
               + f'Type: {req_type}\n'
               + f'URL: {url}\n'
-              + f'Header:{headers}\n'
+              + f'Header:{self.headers}\n'
               + f'Payload: {repr(payload)}')
 
-        response = self.__REQ_TYPES[req_type](url=url, data=payload, headers=headers)
+        response = self.__REQ_TYPES[req_type](url=url, data=payload, headers=self.headers)
         status_code = f'{response.status_code} {response.reason}'
 
         print(f'HTTP RESPONSE: {status_code}')
