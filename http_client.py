@@ -22,7 +22,7 @@ class HttpClient:
         self.headers = headers
 
 
-    def request(self, req_type: HttpMethods, url: str, payload=None, check_status_code=None):
+    def request(self, req_type: HttpMethods, url: str, payload=None, headers=None, check_status_code=None):
         # parse payload
         payload = json.dumps(payload)
         # update headers
@@ -35,9 +35,10 @@ class HttpClient:
               + f'Header:{self.headers}\n'
               + f'Payload: {repr(payload)}')
 
-        response = self.__REQ_TYPES[req_type](url=url, data=payload, headers=self.headers)
+        response = self.__REQ_TYPES[req_type](url=url, data=payload, headers=headers)
         status_code = f'{response.status_code} {response.reason}'
 
+        print(json.loads(response.text))
         print(f'HTTP RESPONSE: {status_code}')
 
         if check_status_code is not None:

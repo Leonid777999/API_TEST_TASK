@@ -11,7 +11,9 @@ class Booking:
         self.__client = client
 
 
-    def create_booking(self, payload):
+
+
+    def create_booking(self, payload: dict):
         """
         create booking
 
@@ -19,7 +21,8 @@ class Booking:
         :return:
         """
 
-        return self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload, check_status_code=200)
+        return self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload,
+                                     BookingHeaders.CREATE_BOOKING_HEADER,check_status_code=200)
 
     def get_booking_list(self):
         """
@@ -27,5 +30,9 @@ class Booking:
 
         :return:
         """
-        return self.__client.request(HttpMethods.GET, BookingEndpoints.GET_LIST, check_status_code=200)
+        return self.__client.request(HttpMethods.GET, BookingEndpoints.GET_LIST,
+                                     check_status_code=200)
 
+    def get_booking_by_id(self, url):
+        return self.__client.request(HttpMethods.GET, url, BookingHeaders.GET_BOOKING_HEADER,
+                                     check_status_code=200)
