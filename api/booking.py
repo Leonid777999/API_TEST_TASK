@@ -34,5 +34,11 @@ class Booking:
                                      check_status_code=200)
 
     def get_booking_by_id(self, url):
+        """
+        get specific booking by id
+
+        :param url:
+        :return:
+        """
         return self.__client.request(HttpMethods.GET, url, BookingHeaders.GET_BOOKING_HEADER,
                                      check_status_code=200)
