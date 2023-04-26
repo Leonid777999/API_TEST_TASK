@@ -40,7 +40,8 @@ def test_check_booking_api(client):
     assert response_body['additionalneeds'][0] == 'stone desert'
     assert response_body['additionalneeds'][1] == 'bottle of water'
 
-    response_body = requests.delete(Url.DELETE.format(id=booking_id), headers=Headers.DELETE_BOOKING_HEADER)
-    assert response_body.status_code == 201
-    response_body = requests.get(Url.GET_BOOKING.format(id=booking_id), headers=Headers.GET_BOOKING_HEADER)
-    assert response_body.status_code == 404
+    client.request(HttpMethods.DELETE, Url.DELETE.format(id=booking_id), headers=Headers.DELETE_BOOKING_HEADER,
+                   check_status_code=201)
+
+    client.request(HttpMethods.GET, Url.GET_BOOKING.format(id=booking_id), headers=Headers.GET_BOOKING_HEADER,
+                   check_status_code=404)
