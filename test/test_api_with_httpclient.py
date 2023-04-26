@@ -46,4 +46,14 @@ from constants.payload_for_test_with_httpclient import Payload
 
 
 def test(app):
-    app.booking.create_booking(Payload.PAYLOAD_FOR_CREATE)
+    response_body = app.booking.create_booking(Payload.PAYLOAD_FOR_CREATE)
+    assert response_body['booking']['firstname'] == 'First Name'
+    assert response_body['booking']['lastname'] == 'Last Name'
+    assert response_body['booking']['totalprice'] == 100
+    assert response_body['booking']['depositpaid'] == True
+    assert response_body['booking']['bookingdates']['checkin'] == '2023-05-19'
+    assert response_body['booking']['bookingdates']['checkout'] == '2023-05-21'
+    assert response_body['booking']['additionalneeds'][0] == 'fruit garden'
+    assert response_body['booking']['additionalneeds'][1] == '20 years old whiskey'
+
+    app.booking.get_booking_list()
