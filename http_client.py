@@ -21,12 +21,11 @@ class HttpClient:
     def __init__(self, headers: dict = None):
         self.headers = headers
 
-
     def request(self, req_type: HttpMethods, url: str, payload=None, check_status_code=None):
         # parse payload
         payload = json.dumps(payload)
         # update headers
-        #if headers is not None:
+        # if headers is not None:
         #    headers = self.__session.headers.copy().update(headers)
 
         print(f'HTTP REQUEST:\n'
@@ -38,7 +37,6 @@ class HttpClient:
         response = self.__REQ_TYPES[req_type](url=url, data=payload, headers=self.headers)
         status_code = f'{response.status_code} {response.reason}'
 
-        print(json.loads(response.text))
         print(f'HTTP RESPONSE: {status_code}')
 
         if check_status_code is not None:
@@ -48,5 +46,3 @@ class HttpClient:
             return response.json()
         except requests.exceptions.JSONDecodeError:
             print("Json is empty")
-
-

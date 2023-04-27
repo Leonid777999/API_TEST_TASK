@@ -21,7 +21,7 @@ class Booking:
 
         return self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload, check_status_code=200)
 
-    def get_booking_list(self):
+    def get_booking_list(self, payload=None,headers=None):
         """
         get list of bookings
 
