@@ -30,12 +30,32 @@ class Booking:
         return self.__client.request(HttpMethods.GET, BookingEndpoints.GET_LIST, self.__client.headers,
                                      check_status_code=200)
 
-    def get_booking_by_id(self, url):
+    def get_booking_by_id(self, url, check_status_code=None):
         """
         get specific booking by id
+
+        :param check_status_code:
+        :param url:
+        :return:
+        """
+        return self.__client.request(HttpMethods.GET, url, self.__client.headers, check_status_code)
+
+    def update_booking(self, url, payload: dict):
+        """
+        update specific booking
+
+        :param url:
+        :param payload:
+        :return:
+        """
+        return self.__client.request(HttpMethods.PUT, url, payload, check_status_code=200)
+
+    def delete_booking(self, url):
+        """
+        delete specific booking
 
         :param url:
         :return:
         """
-        return self.__client.request(HttpMethods.GET, url, BookingHeaders.GET_BOOKING_HEADER,
-                                     check_status_code=200)
+        return self.__client.request(HttpMethods.DELETE, url, self.__client.headers, check_status_code=201)
+

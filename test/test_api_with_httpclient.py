@@ -1,6 +1,4 @@
 
-from http_client import HttpMethods
-from constants.url import Url
 from constants.payload_for_test_with_httpclient import Payload
 from constants.endpoints.booking import BookingEndpoints
 
@@ -26,6 +24,10 @@ from constants.endpoints.booking import BookingEndpoints
 
 def test(app):
 
-    app.booking.create_booking(Payload.PAYLOAD_FOR_CREATE)
+    response_body = app.booking.create_booking(Payload.PAYLOAD_FOR_CREATE)
+    booking_id = response_body['bookingid']
     app.booking.get_booking_list()
-    app.booking.get_booking_by_id()
+    app.booking.get_booking_by_id(BookingEndpoints.GET_BOOKING.format(id=booking_id), check_status_code=200)
+    app.booking.update_booking(BookingEndpoints.UPDATE.format(id=booking_id), Payload.PAYLOAD_FOR_UPDATE)
+    app.booking.delete_booking(BookingEndpoints.DELETE.format(id=booking_id))
+    app.booking.get_booking_by_id(BookingEndpoints.GET_BOOKING.format(id=booking_id), check_status_code=404)

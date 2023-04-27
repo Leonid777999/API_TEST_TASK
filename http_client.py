@@ -38,9 +38,15 @@ class HttpClient:
         response = self.__REQ_TYPES[req_type](url=url, data=payload, headers=self.headers)
         status_code = f'{response.status_code} {response.reason}'
 
+        print(json.loads(response.text))
         print(f'HTTP RESPONSE: {status_code}')
 
         if check_status_code is not None:
             assert check_status_code == response.status_code
 
-        return response.json()
+        try:
+            return response.json()
+        except requests.exceptions.JSONDecodeError:
+            print("Json is empty")
+
+
