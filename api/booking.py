@@ -21,8 +21,7 @@ class Booking:
         :return:
         """
 
-        return self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload,
-                                     BookingHeaders.CREATE_BOOKING_HEADER,check_status_code=200)
+        return self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload, check_status_code=200)
 
     def get_booking_list(self):
         """
