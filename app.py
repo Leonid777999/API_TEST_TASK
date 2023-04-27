@@ -5,8 +5,7 @@ from http_client import HttpClient
 class App:
 
     def __init__(self):
-        self.__client = HttpClient(
-            headers=
+        self.__client = HttpClient(headers=
         {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

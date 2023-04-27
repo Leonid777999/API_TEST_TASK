@@ -27,3 +27,5 @@ from constants.endpoints.booking import BookingEndpoints
 def test(app):
 
     app.booking.create_booking(Payload.PAYLOAD_FOR_CREATE)
+    app.booking.get_booking_list()
+    app.booking.get_booking_by_id()
