@@ -1,5 +1,6 @@
 import json
 import requests
+from loguru import logger
 
 
 class HttpMethods:
@@ -22,11 +23,15 @@ class HttpClient:
         self.headers = headers
 
     def request(self, req_type: HttpMethods, url: str, payload=None, check_status_code=None):
+
+        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB", compression="zip",
+                   serialize=True, colorize=True)
         # parse payload
         payload = json.dumps(payload)
         # update headers
         # if headers is not None:
         #    headers = self.__session.headers.copy().update(headers)
+
 
         print(f'HTTP REQUEST:\n'
               + f'Type: {req_type}\n'
@@ -34,8 +39,11 @@ class HttpClient:
               + f'Header:{self.headers}\n'
               + f'Payload: {repr(payload)}')
 
+
         response = self.__REQ_TYPES[req_type](url=url, data=payload, headers=self.headers)
+
         status_code = f'{response.status_code} {response.reason}'
+
 
         print(f'HTTP RESPONSE: {status_code}')
 
