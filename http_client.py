@@ -1,6 +1,6 @@
 import json
 import requests
-from loguru import logger
+from logger import logger
 
 
 class HttpMethods:
@@ -24,16 +24,11 @@ class HttpClient:
 
     def request(self, req_type: HttpMethods, url: str, payload=None, check_status_code=None):
 
-        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB", compression="zip",
-                   serialize=True, colorize=True)
         # parse payload
         payload = json.dumps(payload)
-        # update headers
-        # if headers is not None:
-        #    headers = self.__session.headers.copy().update(headers)
 
 
-        print(f'HTTP REQUEST:\n'
+        logger.debug(f'HTTP REQUEST:\n'
               + f'Type: {req_type}\n'
               + f'URL: {url}\n'
               + f'Header:{self.headers}\n'
@@ -45,7 +40,7 @@ class HttpClient:
         status_code = f'{response.status_code} {response.reason}'
 
 
-        print(f'HTTP RESPONSE: {status_code}')
+        logger.debug(f'HTTP RESPONSE: {status_code}')
 
         if check_status_code is not None:
             assert check_status_code == response.status_code
@@ -53,4 +48,4 @@ class HttpClient:
         try:
             return response.json()
         except requests.exceptions.JSONDecodeError:
-            print("Json is empty")
+            logger.error("Json is empty")

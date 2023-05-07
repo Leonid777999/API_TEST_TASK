@@ -1,29 +1,22 @@
-from loguru import logger
+
 from constants.payload_for_test_with_httpclient import Payload
 from constants.endpoints.booking import BookingEndpoints
 
 
 def test(app):
 
-    logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 KB", compression="zip",
-               serialize=True, colorize=True)
+    response_body = app.booking.create_booking(Payload.PAYLOAD_FOR_CREATE)
+    booking_id = response_body['bookingid']
 
-    try:
-        response_body = app.booking.create_booking(Payload.PAYLOAD_FOR_CREATE)
-        booking_id = response_body['bookingid']
+    assert response_body['booking']['firstname'] == 'First Name'
+    assert response_body['booking']['lastname'] == 'Last Name'
+    assert response_body['booking']['totalprice'] == 100
+    assert response_body['booking']['depositpaid'] == True
+    assert response_body['booking']['bookingdates']['checkin'] == '2023-05-19'
+    assert response_body['booking']['bookingdates']['checkout'] == '2023-05-21'
+    assert response_body['booking']['additionalneeds'][0] == 'fruit garden'
+    assert response_body['booking']['additionalneeds'][1] == '20 years old whiskey'
 
-        assert response_body['booking']['firstname'] == '1First Name'
-        assert response_body['booking']['lastname'] == 'Last Name'
-        assert response_body['booking']['totalprice'] == 100
-        assert response_body['booking']['depositpaid'] == True
-        assert response_body['booking']['bookingdates']['checkin'] == '2023-05-19'
-        assert response_body['booking']['bookingdates']['checkout'] == '2023-05-21'
-        assert response_body['booking']['additionalneeds'][0] == 'fruit garden'
-        assert response_body['booking']['additionalneeds'][1] == '20 years old whiskey'
-        logger.info("Creation of booking was successful")
-
-    except Exception:
-        logger.error("Creation of booking got an error")
 
     app.booking.get_booking_list()
     response_body = app.booking.get_booking_by_id(BookingEndpoints.GET_BOOKING.format(id=booking_id),

@@ -1,8 +1,7 @@
-from constants.payload_for_test_with_httpclient import Payload
-from constants.url import Url
+from logger import Logger
 from http_client import HttpClient, HttpMethods
 from constants.endpoints.booking import BookingEndpoints
-from constants.headers.booking import BookingHeaders
+
 
 
 class Booking:
@@ -18,8 +17,10 @@ class Booking:
         :param payload:
         :return:
         """
-
-        return self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload, check_status_code=200)
+        Logger.info("Create booking")
+        ret = self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload, check_status_code=200)
+        logger.info("Booking created")
+        return ret
 
     def get_booking_list(self, payload=None,headers=None):
         """

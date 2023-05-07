@@ -1,13 +1,31 @@
 from loguru import logger
 
-logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation= "10 KB", compression="zip",
-           serialize=True, colorize=True)
 
-logger.trace("TRACE")
-logger.debug("DEBUG")
-logger.info("INFO")
-logger.success("SUCCESS")
-logger.warning("WARNING")
-logger.error("ERROR")
-logger.critical("CRITICAL")
+class Logger:
+
+    def __init__(self):
+
+        self.add = logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
+                              compression="zip", serialize=True, colorize=True)
+
+    def trace(self):
+        return logger.trace("TRACE")
+
+    def debug(self):
+        return logger.debug("DEBUG")
+
+    def info(self):
+        return logger.info("INFO")
+
+    def success(self):
+        return logger.success("SUCCESS")
+
+    def warning(self):
+        return logger.warning("WARNING")
+
+    def error(self):
+        return logger.error("ERROR")
+    def critical(self):
+        return logger.critical("CRITICAL")
+
 
