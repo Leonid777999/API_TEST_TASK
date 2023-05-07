@@ -1,7 +1,6 @@
 import json
 import requests
-from logger import logger
-
+from logger import Logger
 
 class HttpMethods:
     GET = 'GET'
@@ -28,7 +27,7 @@ class HttpClient:
         payload = json.dumps(payload)
 
 
-        logger.debug(f'HTTP REQUEST:\n'
+        Logger.info(f'HTTP REQUEST:\n'
               + f'Type: {req_type}\n'
               + f'URL: {url}\n'
               + f'Header:{self.headers}\n'
@@ -40,7 +39,7 @@ class HttpClient:
         status_code = f'{response.status_code} {response.reason}'
 
 
-        logger.debug(f'HTTP RESPONSE: {status_code}')
+        print(f'HTTP RESPONSE: {status_code}')
 
         if check_status_code is not None:
             assert check_status_code == response.status_code
@@ -48,4 +47,4 @@ class HttpClient:
         try:
             return response.json()
         except requests.exceptions.JSONDecodeError:
-            logger.error("Json is empty")
+            Logger.error("Json is empty")

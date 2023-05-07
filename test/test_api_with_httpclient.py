@@ -1,4 +1,3 @@
-
 from constants.payload_for_test_with_httpclient import Payload
 from constants.endpoints.booking import BookingEndpoints
 
@@ -16,7 +15,6 @@ def test(app):
     assert response_body['booking']['bookingdates']['checkout'] == '2023-05-21'
     assert response_body['booking']['additionalneeds'][0] == 'fruit garden'
     assert response_body['booking']['additionalneeds'][1] == '20 years old whiskey'
-
 
     app.booking.get_booking_list()
     response_body = app.booking.get_booking_by_id(BookingEndpoints.GET_BOOKING.format(id=booking_id),
@@ -43,3 +41,18 @@ def test(app):
 
     app.booking.delete_booking(BookingEndpoints.DELETE.format(id=booking_id))
     app.booking.get_booking_by_id(BookingEndpoints.GET_BOOKING.format(id=booking_id), check_status_code=404)
+
+def test2(app):
+
+    response_body = app.booking.create_booking(Payload.PAYLOAD_FOR_CREATE)
+
+    assert response_body['booking']['firstname'] == 'First Name'
+    assert response_body['booking']['lastname'] == 'Last Name'
+    assert response_body['booking']['totalprice'] == 100
+    assert response_body['booking']['depositpaid'] == True
+    assert response_body['booking']['bookingdates']['checkin'] == '2023-05-19'
+    assert response_body['booking']['bookingdates']['checkout'] == '2023-05-21'
+    assert response_body['booking']['additionalneeds'][0] == 'fruit garden'
+    assert response_body['booking']['additionalneeds'][1] == '20 years old whiskey'
+
+    app.booking.get_booking_list()

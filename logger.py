@@ -1,25 +1,41 @@
 from loguru import logger
 
 
-class Logger:
+class Singleton(type):
 
-    __instance = None
-    def __new__(cls, *args, **kwargs):
-        if cls.__instance is None:
-            cls.__instance = super(Logger, cls).__new__(cls)
-        return cls.__instance
+    _instances = {}
 
-
-
-logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
-                              compression="zip", serialize=True, colorize=True)
-
-logger.trace("TRACE")
-logger.debug("DEBUG")
-logger.info("INFO")
-logger.success("SUCCESS")
-logger.warning("WARNING")
-logger.error("ERROR")
-logger.critical("CRITICAL")
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
 
 
+class Logger(metaclass=Singleton):
+
+    def __init__(self, log):
+        pass
+
+    @classmethod
+    def debug(cls,param):
+        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
+                   compression="zip", colorize=True)
+        return logger.debug(param)
+
+    @classmethod
+    def info(cls, param):
+        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
+                   compression="zip", colorize=True)
+        return logger.info(param)
+
+    @classmethod
+    def warning(cls, param):
+        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
+                   compression="zip", colorize=True)
+        return logger.warning(param)
+
+    @classmethod
+    def error(cls, param):
+        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
+                   compression="zip", colorize=True)
+        return logger.error(param)
