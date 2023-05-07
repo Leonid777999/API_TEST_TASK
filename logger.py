@@ -3,29 +3,23 @@ from loguru import logger
 
 class Logger:
 
-    def __init__(self):
+    __instance = None
+    def __new__(cls, *args, **kwargs):
+        if cls.__instance is None:
+            cls.__instance = super(Logger, cls).__new__(cls)
+        return cls.__instance
 
-        self.add = logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
+
+
+logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
                               compression="zip", serialize=True, colorize=True)
 
-    def trace(self):
-        return logger.trace("TRACE")
-
-    def debug(self):
-        return logger.debug("DEBUG")
-
-    def info(self):
-        return logger.info("INFO")
-
-    def success(self):
-        return logger.success("SUCCESS")
-
-    def warning(self):
-        return logger.warning("WARNING")
-
-    def error(self):
-        return logger.error("ERROR")
-    def critical(self):
-        return logger.critical("CRITICAL")
+logger.trace("TRACE")
+logger.debug("DEBUG")
+logger.info("INFO")
+logger.success("SUCCESS")
+logger.warning("WARNING")
+logger.error("ERROR")
+logger.critical("CRITICAL")
 
 
