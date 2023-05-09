@@ -2,7 +2,6 @@ import json
 import requests
 from logger import Logger
 
-requests.__file__
 
 class HttpMethods:
     GET = 'GET'

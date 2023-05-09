@@ -20,7 +20,7 @@ class Booking:
         """
         # Logger.info("Create booking")
         ret = self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload, check_status_code=200)
-        Logger.info("Booking created")
+        #Logger.info("Booking created")
         return ret
 
     def get_booking_list(self, payload=None,headers=None):
@@ -31,7 +31,7 @@ class Booking:
         """
         ret = self.__client.request(HttpMethods.GET, BookingEndpoints.GET_LIST, self.__client.headers,
                                     check_status_code=200)
-        Logger.debug("What with the list?")
+        #Logger.debug("What with the list?")
         return ret
 
     def get_booking_by_id(self, url, check_status_code=None):

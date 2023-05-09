@@ -15,21 +15,19 @@ class Logger(metaclass=Singleton):
 
     def __init__(self):
         self. logger = logger
-        self.logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
-                   compression="zip", colorize=True)
+        self.logger.add(
+            "debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
+            compression="zip", colorize=True
+        )
 
+    def debug(self):
+        return self.logger.debug("DEBUG")
 
-    def debug(self,param):
-        return self.logger.debug(param)
+    def info(self):
+        return self.logger.info("INFO")
 
+    def warning(self):
+        return logger.warning("WARN")
 
-    def info(self, param):
-        return self.logger.info(param)
-
-
-    def warning(cls, param):
-        return logger.warning(param)
-
-
-    def error(cls, param):
-        return logger.error(param)
+    def error(self):
+        return logger.error("ERROR")
