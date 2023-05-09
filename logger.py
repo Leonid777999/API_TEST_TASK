@@ -13,29 +13,23 @@ class Singleton(type):
 
 class Logger(metaclass=Singleton):
 
-    def __init__(self, log):
-        pass
-
-    @classmethod
-    def debug(cls,param):
-        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
+    def __init__(self):
+        self. logger = logger
+        self.logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
                    compression="zip", colorize=True)
-        return logger.debug(param)
 
-    @classmethod
-    def info(cls, param):
-        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
-                   compression="zip", colorize=True)
-        return logger.info(param)
 
-    @classmethod
+    def debug(self,param):
+        return self.logger.debug(param)
+
+
+    def info(self, param):
+        return self.logger.info(param)
+
+
     def warning(cls, param):
-        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
-                   compression="zip", colorize=True)
         return logger.warning(param)
 
-    @classmethod
+
     def error(cls, param):
-        logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
-                   compression="zip", colorize=True)
         return logger.error(param)

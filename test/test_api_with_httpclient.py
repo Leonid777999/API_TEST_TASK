@@ -17,8 +17,9 @@ def test(app):
     assert response_body['booking']['additionalneeds'][1] == '20 years old whiskey'
 
     app.booking.get_booking_list()
-    response_body = app.booking.get_booking_by_id(BookingEndpoints.GET_BOOKING.format(id=booking_id),
-                                                  check_status_code=200)
+    response_body = app.booking.get_booking_by_id(
+        BookingEndpoints.GET_BOOKING.format(id=booking_id), check_status_code=200
+    )
     assert response_body['firstname'] == 'First Name'
     assert response_body['lastname'] == 'Last Name'
     assert response_body['totalprice'] == 100
@@ -28,8 +29,9 @@ def test(app):
     assert response_body['additionalneeds'][0] == 'fruit garden'
     assert response_body['additionalneeds'][1] == '20 years old whiskey'
 
-    response_body = app.booking.update_booking(BookingEndpoints.UPDATE.format(id=booking_id),
-                                               Payload.PAYLOAD_FOR_UPDATE)
+    response_body = app.booking.update_booking(
+        BookingEndpoints.UPDATE.format(id=booking_id), Payload.PAYLOAD_FOR_UPDATE
+    )
     assert response_body['firstname'] == 'Updated Name'
     assert response_body['lastname'] == 'Updated Name'
     assert response_body['totalprice'] == 200
