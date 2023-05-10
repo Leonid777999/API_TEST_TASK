@@ -17,17 +17,20 @@ class Logger(metaclass=Singleton):
         self. logger = logger
         self.logger.add(
             "debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
-            compression="zip", colorize=True
-        )
+            compression="zip", colorize=True)
 
     def debug(self):
         return self.logger.debug("DEBUG")
 
     def info(self):
+        """
+
+        :rtype: object
+        """
         return self.logger.info("INFO")
 
     def warning(self):
-        return logger.warning("WARN")
+        return self.logger.warning("WARN")
 
     def error(self):
-        return logger.error("ERROR")
+        return self.logger.error("ERROR")

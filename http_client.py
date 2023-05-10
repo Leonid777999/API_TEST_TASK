@@ -28,7 +28,7 @@ class HttpClient:
         payload = json.dumps(payload)
 
 
-        Logger.info(f'HTTP REQUEST:\n'
+        print(f'HTTP REQUEST:\n'
               + f'Type: {req_type}\n'
               + f'URL: {url}\n'
               + f'Header:{self.headers}\n'
@@ -48,4 +48,4 @@ class HttpClient:
         try:
             return response.json()
         except requests.exceptions.JSONDecodeError:
-            Logger.error("Json is empty")
+            print("Json is empty")

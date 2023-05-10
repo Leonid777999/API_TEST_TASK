@@ -3,24 +3,23 @@ from logger import Logger
 from http_client import HttpClient, HttpMethods
 from constants.endpoints.booking import BookingEndpoints
 
-
+log = Logger()
 
 class Booking:
 
     def __init__(self, client: HttpClient):
         self.__client = client
 
-
     def create_booking(self, payload: dict):
+
         """
         create booking
 
         :param payload:
         :return:
         """
-        # Logger.info("Create booking")
         ret = self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload, check_status_code=200)
-        #Logger.info("Booking created")
+        log.info("jk")
         return ret
 
     def get_booking_list(self, payload=None,headers=None):
@@ -31,7 +30,6 @@ class Booking:
         """
         ret = self.__client.request(HttpMethods.GET, BookingEndpoints.GET_LIST, self.__client.headers,
                                     check_status_code=200)
-        #Logger.debug("What with the list?")
         return ret
 
     def get_booking_by_id(self, url, check_status_code=None):
