@@ -1,6 +1,6 @@
 import json
 import requests
-from logger import Logger
+from log import Logger
 
 
 class HttpMethods:

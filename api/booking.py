@@ -1,25 +1,26 @@
-
-from logger import Logger
+from log import Logger
 from http_client import HttpClient, HttpMethods
 from constants.endpoints.booking import BookingEndpoints
 
-log = Logger()
+
 
 class Booking:
+
+    log = Logger()
 
     def __init__(self, client: HttpClient):
         self.__client = client
 
     def create_booking(self, payload: dict):
-
         """
         create booking
 
         :param payload:
         :return:
         """
+        self.log.info("Create booking from {url}".format(url=BookingEndpoints.CREATE))
         ret = self.__client.request(HttpMethods.POST, BookingEndpoints.CREATE, payload, check_status_code=200)
-        log.info("jk")
+        self.log.debug("Booking from {url} was created".format(url=BookingEndpoints.CREATE))
         return ret
 
     def get_booking_list(self, payload=None,headers=None):
