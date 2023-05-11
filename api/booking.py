@@ -23,14 +23,16 @@ class Booking:
         self.log.debug("Booking from {url} was created".format(url=BookingEndpoints.CREATE))
         return ret
 
-    def get_booking_list(self, payload=None,headers=None):
+    def get_booking_list(self):
         """
         get list of bookings
 
         :return:
         """
+        self.log.info("Get list of bookings")
         ret = self.__client.request(HttpMethods.GET, BookingEndpoints.GET_LIST, self.__client.headers,
                                     check_status_code=200)
+        self.log.info("Successful")
         return ret
 
     def get_booking_by_id(self, url, check_status_code=None):

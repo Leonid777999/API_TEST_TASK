@@ -12,6 +12,7 @@ class HttpMethods:
 
 class HttpClient:
     __session = requests.Session()
+    log = Logger()
     __REQ_TYPES = {
         HttpMethods.GET: __session.get,
         HttpMethods.POST: __session.post,
@@ -28,7 +29,7 @@ class HttpClient:
         payload = json.dumps(payload)
 
 
-        print(f'HTTP REQUEST:\n'
+        self.log.info(f'HTTP REQUEST:\n'
               + f'Type: {req_type}\n'
               + f'URL: {url}\n'
               + f'Header:{self.headers}\n'
@@ -40,7 +41,7 @@ class HttpClient:
         status_code = f'{response.status_code} {response.reason}'
 
 
-        print(f'HTTP RESPONSE: {status_code}')
+        self.log.info(f'HTTP RESPONSE: {status_code}')
 
         if check_status_code is not None:
             assert check_status_code == response.status_code
@@ -48,4 +49,4 @@ class HttpClient:
         try:
             return response.json()
         except requests.exceptions.JSONDecodeError:
-            print("Json is empty")
+            self.log.warning("Json is empty")
