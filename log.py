@@ -17,7 +17,7 @@ class Logger(metaclass=Singleton):
     def __init__(self):
         self.logger = logger
         self.logger.add("debug.log", format="{time} {level} {message}", level="DEBUG", rotation="10 MB",
-                        compression="zip", colorize=True)
+                        compression="zip", colorize=True, mode="w")
 
     def debug(self, message: str):
         """

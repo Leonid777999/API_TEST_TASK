@@ -32,7 +32,7 @@ class Booking:
         self.log.info("Get list of bookings")
         ret = self.__client.request(HttpMethods.GET, BookingEndpoints.GET_LIST, self.__client.headers,
                                     check_status_code=200)
-        self.log.info("Successful")
+        self.log.info("Booking list received successfully")
         return ret
 
     def get_booking_by_id(self, url, check_status_code=None):
